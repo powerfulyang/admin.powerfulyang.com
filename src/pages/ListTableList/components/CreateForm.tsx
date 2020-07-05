@@ -1,10 +1,32 @@
 import React from 'react';
-import { Modal } from 'antd';
+import { Button, Form, Input, message, Modal } from 'antd';
+import FormItem from 'antd/es/form/FormItem';
+import { addBucket } from '@/pages/ListTableList/service';
 
 interface CreateFormProps {
   modalVisible: boolean;
   onCancel: () => void;
 }
+
+/**
+ * 添加节点
+ */
+const handleAdd = async (values: any) => {
+  const hide = message.loading('正在添加');
+  try {
+    const res = await addBucket(values);
+    if (res.status === 'ok') {
+      hide();
+      message.success('添加成功');
+    } else {
+      hide();
+      message.error('添加失败请重试！');
+    }
+  } catch (error) {
+    hide();
+    message.error('添加失败请重试！');
+  }
+};
 
 const CreateForm: React.FC<CreateFormProps> = (props) => {
   const { modalVisible, onCancel } = props;
@@ -17,7 +39,41 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
       onCancel={() => onCancel()}
       footer={null}
     >
-      {props.children}
+      <Form labelCol={{ span: 5 }} onFinish={handleAdd}>
+        <FormItem
+          name="bucketName"
+          label="bucketName"
+          rules={[{ required: true, message: '请输入bucketName！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          name="bucketRegion"
+          label="bucketRegion"
+          rules={[{ required: true, message: '请输入bucketRegion！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          name="SecretId"
+          label="SecretId"
+          rules={[{ required: true, message: '请输入SecretId！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          name="SecretKey"
+          label="SecretKey"
+          rules={[{ required: true, message: '请输入SecretKey！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem>
+          <Button type="primary" htmlType="submit">
+            提交
+          </Button>
+        </FormItem>
+      </Form>
     </Modal>
   );
 };
