@@ -64,9 +64,9 @@ export default defineConfig({
             },
             {
               name: 'gallery',
+              icon: 'table',
               path: '/gallery',
               component: './gallery',
-              icon: 'table',
             },
             {
               component: './404',

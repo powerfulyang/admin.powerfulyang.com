@@ -4,6 +4,7 @@ import request from '@/utils/request';
 import { DomUtils } from '@powerfulyang/utils';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { UploadFile } from 'antd/es/upload/interface';
+import './index.less';
 
 const Gallery = () => {
   const [staticList, setStaticList] = useState(undefined);
