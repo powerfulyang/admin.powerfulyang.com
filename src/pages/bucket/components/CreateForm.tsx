@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
-import { addBucket } from '@/pages/ListTableList/service';
+import { addBucket } from '../service';
 
 interface CreateFormProps {
   modalVisible: boolean;

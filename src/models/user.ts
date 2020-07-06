@@ -1,4 +1,5 @@
 import { Effect, Reducer } from 'umi';
+import request from '@/utils/request';
 import user from '../../mock/user';
 
 export interface CurrentUser {
@@ -47,9 +48,10 @@ const UserModel: UserModelType = {
       });
     },
     *fetchCurrent(_, { put }) {
+      const res = yield request('/user/current');
       yield put({
         type: 'saveCurrentUser',
-        payload: user['GET /api/currentUser'],
+        payload: res.data,
       });
     },
   },

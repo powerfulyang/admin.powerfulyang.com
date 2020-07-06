@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 
-import { queryBucket } from '@/pages/ListTableList/service';
+import { queryBucket } from './service';
 import CreateForm from './components/CreateForm';
 
 const TableList: React.FC = () => {
