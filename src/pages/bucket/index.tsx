@@ -20,13 +20,12 @@ const TableList: React.FC = () => {
       dataIndex: 'bucketRegion',
     },
   ];
-
   return (
     <PageHeaderWrapper>
       <ProTable
         headerTitle="查询表格"
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="bucketId"
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
             <PlusOutlined /> 新建

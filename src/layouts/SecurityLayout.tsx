@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import { PageLoading } from '@ant-design/pro-layout';
-import { Redirect, connect, ConnectProps } from 'umi';
+import { connect, ConnectProps, Redirect } from 'umi';
 import { stringify } from 'querystring';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
+import * as Sentry from '@sentry/react';
 
 interface SecurityLayoutProps extends ConnectProps {
   loading?: boolean;
@@ -29,6 +30,13 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
         type: 'user/fetchCurrent',
       });
     }
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    Sentry.withScope((scope) => {
+      scope.setExtras(errorInfo);
+      Sentry.captureException(error);
+    });
   }
 
   render() {

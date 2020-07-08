@@ -1,6 +1,5 @@
 import { Effect, Reducer } from 'umi';
 import request from '@/utils/request';
-import user from '../../mock/user';
 
 export interface CurrentUser {
   avatar?: string;
@@ -24,12 +23,10 @@ export interface UserModelType {
   namespace: 'user';
   state: UserModelState;
   effects: {
-    fetch: Effect;
     fetchCurrent: Effect;
   };
   reducers: {
     saveCurrentUser: Reducer<UserModelState>;
-    changeNotifyCount: Reducer<UserModelState>;
   };
 }
 
@@ -41,12 +38,6 @@ const UserModel: UserModelType = {
   },
 
   effects: {
-    *fetch(_, { put }) {
-      yield put({
-        type: 'save',
-        payload: user['GET /api/users'],
-      });
-    },
     *fetchCurrent(_, { put }) {
       const res = yield request('/user/current');
       yield put({
@@ -61,21 +52,6 @@ const UserModel: UserModelType = {
       return {
         ...state,
         currentUser: action.payload || {},
-      };
-    },
-    changeNotifyCount(
-      state = {
-        currentUser: {},
-      },
-      action,
-    ) {
-      return {
-        ...state,
-        currentUser: {
-          ...state.currentUser,
-          notifyCount: action.payload.totalCount,
-          unreadCount: action.payload.unreadCount,
-        },
       };
     },
   },
