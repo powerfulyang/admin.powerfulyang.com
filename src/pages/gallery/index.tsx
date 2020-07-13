@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Modal, Upload } from 'antd';
+import { Card, Modal, Pagination, Skeleton, Upload } from 'antd';
 import request from '@/utils/request';
 import { DomUtils, useMountedState } from '@powerfulyang/utils';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -8,10 +8,13 @@ import './index.less';
 
 const Gallery = () => {
   const [staticList, setStaticList] = useState(undefined);
+  const [pagination, setPagination] = useState({ currentPage: 1, total: 0 });
   const isMounted = useMountedState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     const isSupportWebp = DomUtils.isSupportWebp();
-    request('/static').then((res) => {
+    request('/static', { params: { page: pagination.currentPage } }).then((res) => {
       if (isMounted()) {
         setStaticList(
           res.data[0].map((img: any) => {
@@ -26,9 +29,11 @@ const Gallery = () => {
             };
           }),
         );
+        setPagination({ ...pagination, total: res.data[1] });
+        setLoading(false);
       }
     });
-  }, []);
+  }, [pagination.currentPage]);
   const uploadUrl = REACT_APP_ENV
     ? 'http://localhost:3001/static'
     : 'https://api.powerfulyang.com/static';
@@ -51,7 +56,7 @@ const Gallery = () => {
   return (
     <PageHeaderWrapper>
       <Card>
-        {staticList && (
+        {(!loading && (
           <Upload
             multiple
             action={uploadUrl}
@@ -66,10 +71,18 @@ const Gallery = () => {
           >
             upload
           </Upload>
-        )}
+        )) || <Skeleton />}
         <Modal visible={visible} footer={null} onCancel={() => setVisible(false)}>
           <img alt="preview" style={{ width: '100%' }} src={previewUrl} />
         </Modal>
+        <Pagination
+          pageSize={20}
+          current={pagination.currentPage}
+          onChange={(page) => {
+            setPagination({ ...pagination, currentPage: page });
+          }}
+          total={pagination.total}
+        />
       </Card>
     </PageHeaderWrapper>
   );
