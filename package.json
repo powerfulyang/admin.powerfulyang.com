@@ -51,7 +51,7 @@
     "@ant-design/icons": "^4.2.1",
     "@ant-design/pro-layout": "^6.2.1",
     "@ant-design/pro-table": "^2.4.1",
-    "@powerfulyang/utils": "^0.4.2",
+    "@powerfulyang/utils": "0.4.2",
     "@sentry/react": "^5.19.1",
     "antd": "^4.4.1",
     "classnames": "^2.2.6",

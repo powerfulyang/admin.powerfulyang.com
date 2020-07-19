@@ -48,13 +48,7 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
-            },
-            {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              redirect: '/gallery',
             },
             {
               name: 'list.table-list',
@@ -69,12 +63,12 @@ export default defineConfig({
               component: './gallery',
             },
             {
-              component: './404',
+              name: 'gallery',
+              icon: 'table',
+              path: '/gallery_pHash',
+              component: './gallery/pHash',
             },
           ],
-        },
-        {
-          component: './404',
         },
       ],
     },

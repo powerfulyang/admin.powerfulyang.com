@@ -8,7 +8,7 @@ import './index.less';
 
 const Gallery = () => {
   const [staticList, setStaticList] = useState(undefined);
-  const [pagination, setPagination] = useState({ currentPage: 1, total: 0 });
+  const [pagination, setPagination] = useState({ currentPage: 1, total: 1 });
   const isMounted = useMountedState();
   const [loading, setLoading] = useState(true);
   useEffect(() => {

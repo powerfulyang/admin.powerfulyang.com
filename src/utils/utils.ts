@@ -47,3 +47,29 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
   });
   return authorities;
 };
+
+export const phashDistance = (a: string, b: string) => {
+  let count = 0;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      // eslint-disable-next-line no-plusplus
+      count++;
+    }
+  }
+  return count;
+};
+
+export const getSimilarPhoto = (
+  image: { pHash: string },
+  sources: {
+    staticId: number;
+    pHash: string;
+  }[],
+) => {
+  return sources
+    .sort((a, b) => {
+      return phashDistance(a.pHash, image.pHash) - phashDistance(b.pHash, image.pHash);
+    })
+    .slice(1, 10);
+};
