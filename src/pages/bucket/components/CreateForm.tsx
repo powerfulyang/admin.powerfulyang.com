@@ -8,33 +8,32 @@ interface CreateFormProps {
   onCancel: () => void;
 }
 
-/**
- * 添加节点
- */
-const handleAdd = async (values: any) => {
-  const hide = message.loading('正在添加');
-  try {
-    const res = await addBucket(values);
-    if (res.status === 'ok') {
-      hide();
-      message.success('添加成功');
-    } else {
+const CreateForm: React.FC<CreateFormProps> = (props) => {
+  const { modalVisible, onCancel } = props;
+  /**
+   * 添加节点
+   */
+  const handleAdd = async (values: any) => {
+    const hide = message.loading('正在添加');
+    try {
+      const res = await addBucket(values);
+      if (res.status === 'ok') {
+        hide();
+        message.success('添加成功');
+        onCancel();
+      } else {
+        hide();
+        message.error('添加失败请重试！');
+      }
+    } catch (error) {
       hide();
       message.error('添加失败请重试！');
     }
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-  }
-};
-
-const CreateForm: React.FC<CreateFormProps> = (props) => {
-  const { modalVisible, onCancel } = props;
-
+  };
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="新建bucket"
       visible={modalVisible}
       onCancel={() => onCancel()}
       footer={null}

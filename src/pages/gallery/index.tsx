@@ -29,7 +29,9 @@ const Gallery = () => {
             };
           }),
         );
-        setPagination({ ...pagination, total: res.data[1] });
+        if (res.data[1]) {
+          setPagination({ ...pagination, total: res.data[1] });
+        }
         setLoading(false);
       }
     });
