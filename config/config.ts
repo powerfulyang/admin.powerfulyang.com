@@ -2,6 +2,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+import CompressionWebpackPlugin from 'compression-webpack-plugin';
 
 const { REACT_APP_ENV } = process.env;
 
@@ -87,5 +88,15 @@ export default defineConfig({
   proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
     basePath: '/',
+  },
+  chainWebpack(memo, { env, webpack, createCSSRule }) {
+    memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
+      {
+        algorithm: 'gzip',
+        test: /\.js(\?.*)?$/i,
+        threshold: 10240,
+        minRatio: 0.8,
+      },
+    ]);
   },
 });
