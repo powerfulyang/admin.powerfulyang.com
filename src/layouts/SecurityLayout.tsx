@@ -34,7 +34,9 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     Sentry.withScope((scope) => {
-      scope.setExtras(errorInfo);
+      Object.keys(errorInfo).forEach((key) => {
+        scope.setExtra(key, errorInfo[key]);
+      });
       Sentry.captureException(error);
     });
   }
