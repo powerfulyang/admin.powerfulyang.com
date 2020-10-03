@@ -1,5 +1,5 @@
-const fabric = require('@umijs/fabric');
+const lint = require('@powerfulyang/lint');
 
 module.exports = {
-  ...fabric.prettier,
+  ...lint.prettier,
 };
