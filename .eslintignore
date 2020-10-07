@@ -1,2 +1,6 @@
-example
+/lambda/
+/scripts
+/config
+.history
 *.js
+src/.umi

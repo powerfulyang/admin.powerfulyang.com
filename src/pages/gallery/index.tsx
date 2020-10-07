@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Modal, Pagination, Skeleton, Upload } from 'antd';
 import request from '@/utils/request';
-import { DomUtils, useMountedState } from '@powerfulyang/utils';
+import { useMountedState } from '@powerfulyang/hooks';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { UploadFile } from 'antd/es/upload/interface';
 import './index.less';
+import { isSupportWebp } from '@powerfulyang/utils';
 
 const Gallery = () => {
   const [staticList, setStaticList] = useState(undefined);
@@ -13,7 +14,7 @@ const Gallery = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    const isSupportWebp = DomUtils.isSupportWebp();
+    const supportWebp = isSupportWebp();
     request('/static', { params: { page: pagination.currentPage } }).then((res) => {
       if (isMounted()) {
         setStaticList(
@@ -21,7 +22,7 @@ const Gallery = () => {
             return {
               uid: img.staticId,
               url: `${img.bucket.bucketRegionUrl}/${
-                (isSupportWebp && img.path.webp) || img.path.resize
+                (supportWebp && img.path.webp) || img.path.resize
               }`,
               status: 'uploaded',
               origin: `${img.bucket.bucketRegionUrl}/${img.path.origin}`,
@@ -35,7 +36,7 @@ const Gallery = () => {
         setLoading(false);
       }
     });
-  }, [pagination.currentPage]);
+  }, [isMounted, pagination, pagination.currentPage]);
   const uploadUrl = REACT_APP_ENV
     ? 'http://localhost:3001/static'
     : 'https://api.powerfulyang.com/static';

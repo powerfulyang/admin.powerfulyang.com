@@ -30,11 +30,6 @@
     "test:component": "umi test ./src/components",
     "tsc": "tsc"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
@@ -48,12 +43,12 @@
     "not ie <= 10"
   ],
   "dependencies": {
+    "@powerfulyang/components": "^0.7.1",
+    "@powerfulyang/hooks": "^0.2.1",
+    "@powerfulyang/utils": "^0.7.1",
     "@ant-design/icons": "^4.2.2",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.9.1",
-    "@powerfulyang/components": "^0.7.0",
-    "@powerfulyang/hooks": "^0.2.0",
-    "@powerfulyang/utils": "^0.7.0",
     "@sentry/react": "^5.24.2",
     "antd": "^4.6.6",
     "classnames": "^2.2.6",
@@ -70,8 +65,8 @@
     "use-merge-value": "^1.0.2"
   },
   "devDependencies": {
+    "@powerfulyang/lint": "^0.2.1",
     "@ant-design/pro-cli": "^1.0.23",
-    "@powerfulyang/lint": "^0.2.0",
     "@types/classnames": "^2.2.10",
     "@types/compression-webpack-plugin": "^4.0.1",
     "@types/express": "^4.17.8",
@@ -79,10 +74,7 @@
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
     "@types/qs": "^6.9.5",
-    "@types/react": "^16.9.50",
-    "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.1.0",
-    "@umijs/fabric": "^2.2.2",
     "@umijs/plugin-blocks": "^2.2.1",
     "@umijs/preset-ant-design-pro": "^1.2.2",
     "@umijs/preset-react": "^1.6.8",
@@ -95,15 +87,12 @@
     "detect-installer": "^1.0.2",
     "enzyme": "^3.11.0",
     "express": "^4.17.1",
-    "gh-pages": "^3.1.0",
-    "husky": "^4.3.0",
     "jsdom-global": "^3.0.2",
     "lint-staged": "^10.4.0",
     "mockjs": "^1.1.0",
-    "prettier": "^2.1.2",
     "pro-download": "1.0.1",
     "puppeteer-core": "^5.3.1",
-    "stylelint": "^13.7.2"
+    "@typescript-eslint/eslint-plugin": "^4.3.0"
   },
   "engines": {
     "node": ">=10.0.0"

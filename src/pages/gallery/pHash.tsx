@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Card, message, Pagination, Row, Skeleton } from 'antd';
 import request from '@/utils/request';
-import { DomUtils, useEffectOnce, useMountedState } from '@powerfulyang/utils';
+import { useEffectOnce, useMountedState } from '@powerfulyang/hooks';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import './index.less';
 import { getSimilarPhoto } from '@/utils/utils';
+import { isSupportWebp } from '@powerfulyang/utils';
 
 const getImgUrl = (img: { bucket: { bucketRegionUrl: any }; path: { webp: any; resize: any } }) => {
-  const isSupportWebp = DomUtils.isSupportWebp();
-  return `${img.bucket.bucketRegionUrl}/${(isSupportWebp && img.path.webp) || img.path.resize}`;
+  const supportWebp = isSupportWebp();
+  return `${img.bucket.bucketRegionUrl}/${(supportWebp && img.path.webp) || img.path.resize}`;
 };
 
 const GalleryPHash = () => {
@@ -48,7 +49,7 @@ const GalleryPHash = () => {
         }
       });
     }
-  }, [pagination.currentPage, allStatic]);
+  }, [pagination.currentPage, allStatic, pagination, isMounted]);
 
   const remove = async (id: number) => {
     const res = await request('/static', {

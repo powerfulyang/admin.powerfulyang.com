@@ -101,7 +101,7 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [timing]);
+  }, [props, timing]);
   if (!name) {
     return null;
   }
@@ -149,7 +149,9 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
 const LoginItems: Partial<LoginItemType> = {};
 
 Object.keys(ItemMap).forEach((key) => {
+  // @ts-ignore
   const item = ItemMap[key];
+  // @ts-ignore
   LoginItems[key] = (props: LoginItemProps) => (
     <LoginContext.Consumer>
       {(context) => (

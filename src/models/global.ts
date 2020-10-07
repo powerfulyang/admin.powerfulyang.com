@@ -46,6 +46,7 @@ const GlobalModel: GlobalModelType = {
     setup({ history }): void {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
       history.listen(({ pathname, search }): void => {
+        // eslint-disable-next-line no-console
         console.log(pathname + search);
       });
     },
