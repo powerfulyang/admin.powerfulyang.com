@@ -1,9 +1,10 @@
 import { Effect, Reducer } from 'umi';
 import request from '@/utils/request';
+import { stringify } from 'qs';
 
 export interface CurrentUser {
   avatar?: string;
-  name?: string;
+  nickname?: string;
   title?: string;
   group?: string;
   signature?: string;
@@ -11,7 +12,7 @@ export interface CurrentUser {
     key: string;
     label: string;
   }[];
-  userid?: string;
+  id?: string;
   unreadCount?: number;
 }
 
@@ -38,11 +39,15 @@ const UserModel: UserModelType = {
   },
 
   effects: {
-    *fetchCurrent(_, { put }) {
-      const res = yield request('/user/current');
+    *fetchCurrent({ payload }, { put }) {
+      let url = '/user/current';
+      if (payload.authorization) {
+        url += `?${stringify(payload)}`;
+      }
+      const res = yield request(url);
       yield put({
         type: 'saveCurrentUser',
-        payload: res.data,
+        payload: res?.data,
       });
     },
   },

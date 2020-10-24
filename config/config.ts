@@ -17,7 +17,7 @@ export default defineConfig({
     default: 'zh-CN',
     // default true, when it is true, will use `navigator.language` overwrite default
     antd: true,
-    baseNavigator: true,
+    baseNavigator: false,
   },
   dynamicImport: {
     loading: '@/components/PageLoading/index',
@@ -32,7 +32,6 @@ export default defineConfig({
       component: '../layouts/UserLayout',
       routes: [
         {
-          name: 'login',
           path: '/user/login',
           component: './user/login',
         },
@@ -45,14 +44,14 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
+          authority: ['admin'],
           routes: [
             {
               path: '/',
               redirect: '/gallery',
             },
             {
-              name: 'list.table-list',
+              name: 'bucket',
               icon: 'table',
               path: '/list',
               component: './bucket',
@@ -64,7 +63,7 @@ export default defineConfig({
               component: './gallery',
             },
             {
-              name: 'gallery',
+              name: 'galleryHash',
               icon: 'table',
               path: '/gallery_pHash',
               component: './gallery/pHash',
@@ -84,18 +83,19 @@ export default defineConfig({
   },
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
+  proxy: proxy.dev,
   manifest: {
     basePath: '/',
   },
-  chainWebpack(memo, { env, webpack, createCSSRule }) {
-    memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
-      {
-        algorithm: 'gzip',
-        test: /\.js(\?.*)?$/i,
-        threshold: 10240,
-        minRatio: 0.8,
-      },
-    ]);
+  chainWebpack(memo) {
+    REACT_APP_ENV !== 'dev' &&
+      memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
+        {
+          algorithm: 'gzip',
+          test: /\.js(\?.*)?$/i,
+          threshold: 10240,
+          minRatio: 0.8,
+        },
+      ]);
   },
 });

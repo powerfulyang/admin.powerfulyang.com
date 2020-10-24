@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { FormInstance } from 'antd/es/form';
 import { LoginParamsType } from '@/services/login';
 
+import { Dict } from '@powerfulyang/utils';
 import LoginContext from './LoginContext';
 import LoginItem, { LoginItemProps } from './LoginItem';
 import LoginSubmit from './LoginSubmit';
@@ -33,7 +34,7 @@ interface LoginType extends React.FC<LoginProps> {
 const Login: LoginType = (props) => {
   const { className } = props;
   const [tabs, setTabs] = useState<string[]>([]);
-  const [active, setActive] = useState({});
+  const [active, setActive] = useState<Dict>({});
   const [type, setType] = useMergeValue('', {
     value: props.activeKey,
     onChange: props.onTabChange,

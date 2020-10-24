@@ -1,8 +1,3 @@
-/**
- * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
- * You can view component api by:
- * https://github.com/ant-design/ant-design-pro-layout
- */
 import ProLayout, {
   BasicLayoutProps as ProLayoutProps,
   DefaultFooter,
@@ -61,24 +56,24 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} 蚂蚁金服体验技术部出品`}
+    copyright={`${new Date().getFullYear()} powerfulyang出品`}
     links={[
       {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
+        key: 'powerfulyang',
+        title: `powerfulyang homepage`,
         href: 'https://pro.ant.design',
         blankTarget: true,
       },
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        href: 'https://github.com/powerfulyang/admin.powerfulyang.com',
         blankTarget: true,
       },
       {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
+        key: 'anime-waifu',
+        title: 'Anime Waifu',
+        href: 'https://gallery.powerfulyang.com',
         blankTarget: true,
       },
     ]}
@@ -135,7 +130,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         },
         ...routers,
       ]}
-      itemRender={(route, params, routes, paths) => {
+      itemRender={(route, _params, routes, paths) => {
         const first = routes.indexOf(route) === 0;
         return first ? (
           <Link to={paths.join('/')}>{route.breadcrumbName}</Link>

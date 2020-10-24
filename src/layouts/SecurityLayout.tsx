@@ -1,10 +1,11 @@
-import React, { ErrorInfo } from 'react';
+import React from 'react';
 import { PageLoading } from '@ant-design/pro-layout';
 import { connect, ConnectProps, Redirect } from 'umi';
 import { stringify } from 'querystring';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
-import * as Sentry from '@sentry/react';
+import { captureException } from '@sentry/react';
+import { getPageQuery } from '@/utils/utils';
 
 interface SecurityLayoutProps extends ConnectProps {
   loading?: boolean;
@@ -25,28 +26,23 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
       isReady: true,
     });
     const { dispatch } = this.props;
+    const query = getPageQuery();
     if (dispatch) {
       dispatch({
         type: 'user/fetchCurrent',
+        payload: query,
       });
     }
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    Sentry.withScope((scope) => {
-      Object.keys(errorInfo).forEach((key) => {
-        scope.setExtra(key, errorInfo[key]);
-      });
-      Sentry.captureException(error);
-    });
+  componentDidCatch(error: Error, errorInfo: any) {
+    captureException(error, { extra: errorInfo });
   }
 
   render() {
     const { isReady } = this.state;
     const { children, loading, currentUser } = this.props;
-    // You can replace it to your authentication rule (such as check token exists)
-    // 你可以把它替换成你自己的登录认证规则（比如判断 token 是否存在）
-    const isLogin = currentUser && currentUser.userid;
+    const isLogin = currentUser && currentUser.id;
     const queryString = stringify({
       redirect: window.location.href,
     });

@@ -1,9 +1,10 @@
-import { Button, Col, Input, Row, Form, message } from 'antd';
-import React, { useState, useCallback, useEffect } from 'react';
+import { Button, Col, Form, Input, message, Row } from 'antd';
+import React, { useCallback, useState } from 'react';
 import omit from 'omit.js';
 import { FormItemProps } from 'antd/es/form/FormItem';
 import { getFakeCaptcha } from '@/services/login';
 
+import { useEffectOnce } from '@powerfulyang/hooks';
 import ItemMap from './map';
 import LoginContext, { LoginContextProps } from './LoginContext';
 import styles from './index.less';
@@ -84,7 +85,7 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
     setTiming(true);
   }, []);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     let interval: number = 0;
     const { countDown } = props;
     if (timing) {
@@ -101,7 +102,7 @@ const LoginItem: React.FC<LoginItemProps> = (props) => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [props, timing]);
+  });
   if (!name) {
     return null;
   }
