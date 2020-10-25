@@ -36,6 +36,7 @@ const errorHandler = async (error: { response: Response }): Promise<Response> =>
  */
 const request = extend({
   errorHandler, // 默认错误处理
+  credentials: 'include',
 });
 
 // request拦截器, 改变url 或 options.
