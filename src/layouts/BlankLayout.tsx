@@ -1,5 +1,12 @@
 import React from 'react';
+import { useEffectOnce } from '@powerfulyang/hooks';
+import request from '@/utils/request';
 
-const Layout: React.FC = ({ children }) => <>{children}</>;
+const BlankLayout: React.FC = ({ children }) => {
+  useEffectOnce(() => {
+    request('/hello');
+  });
+  return <>{children}</>;
+};
 
-export default Layout;
+export default BlankLayout;

@@ -28,52 +28,58 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          path: '/user/login',
-          component: './user/login',
-        },
-      ],
-    },
-    {
       path: '/',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BlankLayout',
       routes: [
         {
-          path: '/',
-          component: '../layouts/BasicLayout',
-          authority: ['admin'],
+          path: '/user',
+          component: '../layouts/UserLayout',
           routes: [
             {
-              path: '/',
-              redirect: '/gallery',
-            },
-            {
-              name: 'bucket',
-              icon: 'table',
-              path: '/list',
-              component: './bucket',
-            },
-            {
-              name: 'gallery',
-              icon: 'table',
-              path: '/gallery',
-              component: './gallery',
-            },
-            {
-              name: 'galleryHash',
-              icon: 'table',
-              path: '/gallery_pHash',
-              component: './gallery/pHash',
+              path: '/user/login',
+              component: './user/login',
             },
           ],
         },
+        {
+          path: '/',
+          component: '../layouts/SecurityLayout',
+          routes: [
+            {
+              path: '/',
+              component: '../layouts/BasicLayout',
+              authority: ['admin'],
+              routes: [
+                {
+                  path: '/',
+                  redirect: '/gallery',
+                },
+                {
+                  name: 'bucket',
+                  icon: 'table',
+                  path: '/list',
+                  component: './bucket',
+                },
+                {
+                  name: 'gallery',
+                  icon: 'table',
+                  path: '/gallery',
+                  component: './gallery',
+                },
+                {
+                  name: 'galleryHash',
+                  icon: 'table',
+                  path: '/gallery_pHash',
+                  component: './gallery/pHash',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
       ],
-    },
-    {
-      component: './404',
     },
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
