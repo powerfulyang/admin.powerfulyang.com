@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, Modal, Pagination, Skeleton, Upload } from 'antd';
 import request from '@/utils/request';
-import { useMountedState } from '@powerfulyang/hooks';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { UploadFile } from 'antd/es/upload/interface';
 import './index.less';
+import { useRequest } from '@/hooks/useRequest';
 
 const Gallery = () => {
-  const [staticList, setStaticList] = useState([]);
   const [pagination, setPagination] = useState({ currentPage: 1, total: 1 });
-  const isMounted = useMountedState();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    setStaticList([]);
-  }, [isMounted, pagination, pagination.currentPage]);
-
+  const [loading, assets] = useRequest<any>('/asset', { pagination });
   const [visible, setVisible] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
 
@@ -38,7 +31,11 @@ const Gallery = () => {
           <Upload
             multiple
             listType="picture-card"
-            defaultFileList={staticList}
+            defaultFileList={assets.data.map((img: any) => ({
+              url: img.cosUrl,
+              uid: img.id,
+              status: 'done',
+            }))}
             onPreview={(url) => {
               setVisible(true);
               setPreviewUrl((url as any).origin);
