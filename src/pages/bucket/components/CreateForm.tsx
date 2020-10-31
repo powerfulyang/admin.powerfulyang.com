@@ -53,20 +53,6 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
         >
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem
-          name="SecretId"
-          label="SecretId"
-          rules={[{ required: true, message: '请输入SecretId！' }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
-        <FormItem
-          name="SecretKey"
-          label="SecretKey"
-          rules={[{ required: true, message: '请输入SecretKey！' }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit">
             提交

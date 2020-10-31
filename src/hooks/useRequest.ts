@@ -2,22 +2,32 @@ import { useEffect } from 'react';
 import { useImmer } from '@powerfulyang/hooks';
 import request from '@/utils/request';
 import { Subject } from 'rxjs';
+import { RequestOptionsInit } from 'umi-request';
 
-export const useRequest = <T>(url: string, query: object = {}, body: object = {}) => {
+export const useRequest = <T, P>(
+  url: string,
+  options: {
+    params?: Pick<RequestOptionsInit, 'params'> & P;
+    data?: Pick<RequestOptionsInit, 'data'> & P;
+    method?: string;
+  },
+) => {
+  const { params, data, method = 'GET' } = options;
   const [loading, setLoading] = useImmer(true);
-  const [data, setData] = useImmer<T>();
+  const [response, setResponse] = useImmer<T>();
   useEffect(() => {
+    setLoading(true);
     const subject = new Subject();
     subject.subscribe((res) => {
-      setData(res as T);
+      setResponse(res as T);
       setLoading(false);
     });
-    request(url).then((res) => {
+    request(url, { params, data, method }).then((res) => {
       subject.next(res);
     });
     return () => {
       subject.unsubscribe();
     };
-  }, [url, query, body, setData, setLoading]);
-  return [loading, data] as const;
+  }, [url, setLoading, method, params, data, setResponse]);
+  return [loading, response] as const;
 };

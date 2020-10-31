@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
 import { Card, Modal, Pagination, Skeleton, Upload } from 'antd';
-import request from '@/utils/request';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { UploadFile } from 'antd/es/upload/interface';
 import './index.less';
 import { useRequest } from '@/hooks/useRequest';
+import { getCosObjectThumbnailUrl, getCosObjectUrl } from '@/utils/cosUtils';
+import { useImmer } from '@powerfulyang/hooks';
 
 const Gallery = () => {
-  const [pagination, setPagination] = useState({ currentPage: 1, total: 1 });
-  const [loading, assets] = useRequest<any>('/asset', { pagination });
+  const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 20 });
+  const [loading, assets] = useRequest<any, typeof pagination>('/asset', { params: pagination });
   const [visible, setVisible] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState('');
-
-  const remove = async (info: UploadFile) => {
-    if (info.status === ('uploaded' as any)) {
-      const id = info.uid;
-      const res = await request('/static', {
-        method: 'DELETE',
-        data: { id },
-      });
-      return res?.status === 'ok';
-    }
-    return true;
-  };
+  const [previewUrl, setPreviewUrl] = useState<string>();
 
   return (
     <PageHeaderWrapper>
@@ -31,30 +19,32 @@ const Gallery = () => {
           <Upload
             multiple
             listType="picture-card"
-            defaultFileList={assets.data.map((img: any) => ({
-              url: img.cosUrl,
+            defaultFileList={assets.data[0].map((img: any) => ({
+              url: getCosObjectThumbnailUrl(img.objectUrl),
               uid: img.id,
-              status: 'done',
+              preview: getCosObjectUrl(img.objectUrl),
             }))}
-            onPreview={(url) => {
+            onPreview={(obj) => {
+              setPreviewUrl(obj.preview);
               setVisible(true);
-              setPreviewUrl((url as any).origin);
             }}
-            onRemove={remove}
+            disabled
           >
             upload
           </Upload>
         )) || <Skeleton />}
         <Modal visible={visible} footer={null} onCancel={() => setVisible(false)}>
-          <img alt="preview" style={{ width: '100%' }} src={previewUrl} />
+          {visible && <img alt="preview" style={{ width: '100%' }} src={previewUrl} />}
         </Modal>
         <Pagination
           pageSize={20}
           current={pagination.currentPage}
           onChange={(page) => {
-            setPagination({ ...pagination, currentPage: page });
+            setPagination((draft) => {
+              draft.currentPage = page;
+            });
           }}
-          total={pagination.total}
+          total={assets?.data[1] || pagination.total}
         />
       </Card>
     </PageHeaderWrapper>

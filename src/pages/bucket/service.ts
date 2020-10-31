@@ -2,7 +2,7 @@ import request from '@/utils/request';
 
 export async function queryBucket() {
   const res = await request('/bucket');
-  return { data: res.data[0], total: res.data[1] };
+  return { data: res.data, total: res.data.length };
 }
 
 export async function addBucket(values: any) {
