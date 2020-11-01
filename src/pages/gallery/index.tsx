@@ -32,10 +32,17 @@ const Gallery = () => {
             disabled
           />
         )) || <Skeleton />}
-        <Modal visible={visible} footer={null} onCancel={() => setVisible(false)}>
-          {visible && <img alt="preview" style={{ width: '100%' }} src={previewUrl} />}
+        <Modal
+          width="70%"
+          bodyStyle={{ textAlign: 'center' }}
+          visible={visible}
+          footer={null}
+          onCancel={() => setVisible(false)}
+        >
+          {visible && <img alt="preview" style={{ maxWidth: '100%' }} src={previewUrl} />}
         </Modal>
         <Pagination
+          style={{ marginTop: '20px' }}
           pageSize={pagination.pageSize}
           current={pagination.currentPage}
           onChange={(page, pageSize) => {
