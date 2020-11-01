@@ -8,7 +8,7 @@ import { useImmer } from '@powerfulyang/hooks';
 import { __dev__ } from '@powerfulyang/utils';
 
 const Gallery = () => {
-  const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 40 });
+  const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 10 });
   const [loading, assets] = useRequest<any, typeof pagination>('/asset', { params: pagination });
   const [visible, setVisible] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string>();
