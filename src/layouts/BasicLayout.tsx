@@ -12,7 +12,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logo.svg';
+import logo from '../assets/f4695a0f0a834a0f806983941076768438c80ccc.jpg';
 
 const noMatch = (
   <Result
@@ -54,7 +54,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 
-const defaultFooterDom = (
+export const defaultFooterDom = (
   <DefaultFooter
     copyright={`${new Date().getFullYear()} powerfulyang出品`}
     links={[

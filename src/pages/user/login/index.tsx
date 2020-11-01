@@ -52,7 +52,7 @@ const Login: React.FC<LoginProps> = (props) => {
 
           <UserName
             name="email"
-            placeholder="用户名: admin or user"
+            placeholder="用户名"
             rules={[
               {
                 required: true,
@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = (props) => {
           />
           <Password
             name="password"
-            placeholder="密码: ant.design"
+            placeholder="密码"
             rules={[
               {
                 required: true,

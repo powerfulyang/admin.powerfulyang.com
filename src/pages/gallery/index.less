@@ -1,16 +1,9 @@
-#root > div > section > div {
-  flex-shrink: 0;
-}
-.upload-img-size {
-  width: 200px;
-  height: 200px;
-}
-.ant-upload-list-picture-card-container {
-  .upload-img-size;
-}
-div.ant-upload-list.ant-upload-list-picture-card > div > span > div {
-  .upload-img-size;
-}
-div.ant-upload.ant-upload-select.ant-upload-select-picture-card {
-  .upload-img-size;
+.ant-upload-list {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 100px);
+  justify-content: space-between;
+  &::before {
+    content: unset;
+  }
 }
