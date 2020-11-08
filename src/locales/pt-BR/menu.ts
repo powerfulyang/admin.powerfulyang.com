@@ -1,6 +1,7 @@
 export default {
   'menu.home': 'home',
-  'menu.bucket': 'bucket',
+  'menu.cos-bucket-list': 'bucket',
   'menu.gallery': 'gallery',
-  'menu.galleryHash': 'galleryHash',
+  'menu.gallery-list': 'list',
+  'menu.gallery-pHash-list': 'pHash',
 };

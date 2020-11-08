@@ -4,13 +4,13 @@ import request from '@/utils/request';
 import { Subject } from 'rxjs';
 import { RequestOptionsInit } from 'umi-request';
 
-export const useRequest = <T, P>(
+export const useRequest = <T = any, P = any>(
   url: string,
   options: {
     params?: Pick<RequestOptionsInit, 'params'> & P;
     data?: Pick<RequestOptionsInit, 'data'> & P;
     method?: string;
-  },
+  } = {},
 ) => {
   const { params, data, method = 'GET' } = options;
   const [loading, setLoading] = useImmer(true);

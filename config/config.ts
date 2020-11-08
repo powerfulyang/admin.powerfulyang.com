@@ -19,9 +19,7 @@ export default defineConfig({
     antd: true,
     baseNavigator: false,
   },
-  dynamicImport: {
-    loading: '@/components/PageLoading/index',
-  },
+  dynamicImport: false,
   targets: {
     ie: 11,
   },
@@ -29,7 +27,7 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      component: '../layouts/BlankLayout',
+      component: '../layouts/CsrfLayout',
       routes: [
         {
           path: '/user',
@@ -48,29 +46,39 @@ export default defineConfig({
             {
               path: '/',
               component: '../layouts/BasicLayout',
-              authority: ['admin'],
               routes: [
                 {
                   path: '/',
-                  redirect: '/gallery',
+                  redirect: '/bucket',
                 },
                 {
-                  name: 'bucket',
+                  name: 'cos-bucket-list',
                   icon: 'table',
-                  path: '/list',
+                  path: '/bucket',
                   component: './bucket',
                 },
                 {
-                  name: 'gallery',
-                  icon: 'table',
                   path: '/gallery',
-                  component: './gallery',
+                  routes: [
+                    {
+                      name: 'gallery',
+                      icon: 'smile',
+                      path: '/gallery/list',
+                      component: './gallery',
+                    },
+                    {
+                      name: 'galleryHash',
+                      icon: 'table',
+                      path: '/gallery/pHash',
+                      component: './gallery/pHash',
+                    },
+                    {
+                      component: './404',
+                    },
+                  ],
                 },
                 {
-                  name: 'galleryHash',
-                  icon: 'table',
-                  path: '/gallery_pHash',
-                  component: './gallery/pHash',
+                  component: './404',
                 },
               ],
             },
