@@ -1,9 +1,10 @@
 import { stringify } from 'querystring';
-import { history, Reducer, Effect } from 'umi';
+import { Effect, history, Reducer } from 'umi';
 
 import { UserLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import request from '@/utils/request';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -55,16 +56,19 @@ const Model: LoginModelType = {
       }
     },
 
-    logout() {
+    *logout() {
       const { redirect } = getPageQuery();
-      // Note: There may be security issues, please note
-      if (window.location.pathname !== '/user/login' && !redirect) {
-        history.replace({
-          pathname: '/user/login',
-          search: stringify({
-            redirect: window.location.href,
-          }),
-        });
+      const res = yield request('/user/logout', { method: 'POST' });
+      if (res.status === 'ok') {
+        // Note: There may be security issues, please note
+        if (window.location.pathname !== '/user/login' && !redirect) {
+          history.replace({
+            pathname: '/user/login',
+            search: stringify({
+              redirect: window.location.href,
+            }),
+          });
+        }
       }
     },
   },
