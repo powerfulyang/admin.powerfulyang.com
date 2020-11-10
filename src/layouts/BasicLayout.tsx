@@ -117,7 +117,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   };
   const { formatMessage } = useIntl();
 
-  const [, menus] = useRequest<HooksResponse<MenuDataItem[]>>('/menu');
+  const [, menus] = useRequest<HooksResponse<MenuDataItem[]>>('/menu/current');
 
   return (
     <>
