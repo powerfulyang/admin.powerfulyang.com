@@ -30,12 +30,12 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
-      - name: Deploy
-        uses: easingthemes/ssh-deploy@v2.0.7
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          ARGS: '-avz --delete'
-          SOURCE: 'dist/.'
-          REMOTE_HOST: powerfulyang.com
-          REMOTE_USER: root
-          TARGET: /root/app/www/admin.powerfulyang.com/
+#      - name: Deploy
+#        uses: easingthemes/ssh-deploy@v2.0.7
+#        env:
+#          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+#          ARGS: '-avz --delete'
+#          SOURCE: 'dist/.'
+#          REMOTE_HOST: powerfulyang.com
+#          REMOTE_USER: root
+#          TARGET: /root/app/www/admin.powerfulyang.com/

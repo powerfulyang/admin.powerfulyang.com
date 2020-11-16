@@ -10,11 +10,12 @@ export const useRequest = <T = any, P = any>(
     params?: Pick<RequestOptionsInit, 'params'> & P;
     data?: Pick<RequestOptionsInit, 'data'> & P;
     method?: string;
+    initialVal?: T;
   } = {},
 ) => {
-  const { params, data, method = 'GET' } = options;
+  const { params, data, method = 'GET', initialVal } = options;
   const [loading, setLoading] = useImmer(true);
-  const [response, setResponse] = useImmer<T>();
+  const [response, setResponse] = useImmer<T>(initialVal);
   useEffect(() => {
     setLoading(true);
     const subject = new Subject();

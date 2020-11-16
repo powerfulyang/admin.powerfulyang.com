@@ -3,7 +3,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "esnext",
-    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "lib": ["es5", "es6", "es7", "es2017", "dom", "esnext"],
     "sourceMap": true,
     "baseUrl": ".",
     "jsx": "react",
