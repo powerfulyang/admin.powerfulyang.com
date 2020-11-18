@@ -16,7 +16,7 @@
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "lint:prettier": "prettier --check \"**/*.{tsx,ts,less}\" --end-of-line auto",
-    "prettier": "prettier -c --write \"**/*.{ts,tsx,less}\"",
+    "prettier": "prettier --write \"**/*.{ts,tsx,less}\"",
     "start": "umi dev",
     "dev": "npm run start:dev",
     "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none umi dev",
@@ -90,8 +90,7 @@
     "lint-staged": "^10.5.1",
     "mockjs": "^1.1.0",
     "pro-download": "1.0.1",
-    "puppeteer-core": "^5.5.0",
-    "@typescript-eslint/eslint-plugin": "^4.8.1"
+    "puppeteer-core": "^5.5.0"
   },
   "engines": {
     "node": ">=10.0.0"
