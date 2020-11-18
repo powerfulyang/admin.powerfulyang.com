@@ -16,26 +16,15 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - run: echo ${{github.ref}}
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
       - run: npm install
       - run: npm run lint
       - run: npm run build
-#      - name: Deploy
-#        uses: easingthemes/ssh-deploy@v2.0.7
-#        env:
-#          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-#          ARGS: '-avz --delete'
-#          SOURCE: 'dist/.'
-#          REMOTE_HOST: powerfulyang.com
-#          REMOTE_USER: root
-#          TARGET: /root/app/www/admin.powerfulyang.com/
+      - name: Deploy
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: '-avz --delete'
+          SOURCE: 'dist/.'
+          REMOTE_HOST: powerfulyang.com
+          REMOTE_USER: root
+          TARGET: /root/app/www/admin.powerfulyang.com/
