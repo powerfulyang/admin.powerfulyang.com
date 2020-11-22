@@ -42,7 +42,7 @@ const request = extend({
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use((url, options) => {
   const token = localStorage.getItem('token');
-  let newUrl = `https://api.powerfulyang.com${url}`;
+  let newUrl = `https://api.powerfulyang.com/api${url}`;
   if (REACT_APP_ENV) {
     newUrl = `/api${url}`;
   }
