@@ -52,8 +52,6 @@ export default defineConfig({
                   redirect: '/bucket',
                 },
                 {
-                  name: 'cos-bucket-list',
-                  icon: 'table',
                   path: '/bucket',
                   component: './bucket',
                 },
@@ -61,16 +59,28 @@ export default defineConfig({
                   path: '/gallery',
                   routes: [
                     {
-                      name: 'gallery',
-                      icon: 'smile',
                       path: '/gallery/list',
                       component: './gallery',
                     },
                     {
-                      name: 'galleryHash',
-                      icon: 'table',
                       path: '/gallery/pHash',
                       component: './gallery/pHash',
+                    },
+                    {
+                      component: './404',
+                    },
+                  ],
+                },
+                {
+                  path: '/post',
+                  routes: [
+                    {
+                      path: '/post/create',
+                      component: './post/create',
+                    },
+                    {
+                      path: '/post/list',
+                      component: './post',
                     },
                     {
                       component: './404',
