@@ -63,6 +63,7 @@ const GalleryPHash = () => {
             );
           })}
         <Pagination
+          style={{ marginTop: '1rem' }}
           pageSize={20}
           current={pagination.currentPage}
           onChange={(page) => {
