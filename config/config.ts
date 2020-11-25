@@ -111,6 +111,7 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  plugins: [`${__dirname}/ga.ts`],
   chainWebpack(memo) {
     REACT_APP_ENV !== 'dev' &&
       memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [

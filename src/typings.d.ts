@@ -14,6 +14,11 @@ declare module 'omit.js';
 
 interface Window {
   reloadAuthorized: () => void;
+  ga: (
+    command: 'send',
+    hitType: 'event' | 'pageview',
+    fieldsObject: GAFieldsObject | string,
+  ) => void;
 }
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
