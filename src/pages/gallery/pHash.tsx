@@ -39,7 +39,7 @@ const GalleryPHash = () => {
                 .includes(item.id),
             );
             return (
-              <Row>
+              <Row key={key}>
                 <Col>
                   {target?.id}
                   <img

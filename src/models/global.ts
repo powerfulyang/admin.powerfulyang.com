@@ -46,7 +46,9 @@ const GlobalModel: GlobalModelType = {
     setup({ history }): void {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
       history.listen(({ pathname, search }): void => {
-        window.ga('send', 'pageview', pathname + search);
+        if (window.ga) {
+          window.ga('send', 'pageview', pathname + search);
+        }
       });
     },
   },

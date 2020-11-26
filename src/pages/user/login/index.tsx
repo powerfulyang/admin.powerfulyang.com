@@ -1,7 +1,7 @@
 import { GoogleCircleFilled } from '@ant-design/icons';
 import { Alert, Checkbox } from 'antd';
 import React, { useState } from 'react';
-import { Link, connect, Dispatch } from 'umi';
+import { connect, Dispatch } from 'umi';
 import { StateType } from '@/models/login';
 import { LoginParamsType } from '@/services/login';
 import { ConnectState } from '@/models/connect';
@@ -9,7 +9,7 @@ import LoginForm from './components/Login';
 
 import styles from './style.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginForm;
+const { Tab, UserName, Password, Submit } = LoginForm;
 interface LoginProps {
   dispatch: Dispatch;
   userLogin: StateType;
@@ -71,64 +71,17 @@ const Login: React.FC<LoginProps> = (props) => {
             ]}
           />
         </Tab>
-        <Tab key="mobile" tab="手机号登录">
-          {status === 'error' && loginType === 'mobile' && !submitting && (
-            <LoginMessage content="验证码错误" />
-          )}
-          <Mobile
-            name="mobile"
-            placeholder="手机号"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机号！',
-              },
-              {
-                pattern: /^1\d{10}$/,
-                message: '手机号格式错误！',
-              },
-            ]}
-          />
-          <Captcha
-            name="captcha"
-            placeholder="验证码"
-            countDown={120}
-            getCaptchaButtonText=""
-            getCaptchaSecondText="秒"
-            rules={[
-              {
-                required: true,
-                message: '请输入验证码！',
-              },
-            ]}
-          />
-        </Tab>
         <div>
           <Checkbox checked={autoLogin} onChange={(e) => setAutoLogin(e.target.checked)}>
             自动登录
           </Checkbox>
-          <a
-            style={{
-              float: 'right',
-            }}
-          >
-            忘记密码
-          </a>
         </div>
         <Submit loading={submitting}>登录</Submit>
         <div className={styles.other}>
           其他登录方式
-          <a
-            href={
-              (REACT_APP_ENV && 'https://dev.powerfulyang.com/user/google/auth') ||
-              'https://api.powerfulyang.com/user/google/auth'
-            }
-          >
+          <a href="https://api.powerfulyang.com/api/user/google/auth">
             <GoogleCircleFilled className={styles.icon} />
           </a>
-          <Link className={styles.register} to="/user/register">
-            注册账户
-          </Link>
         </div>
       </LoginForm>
     </div>
