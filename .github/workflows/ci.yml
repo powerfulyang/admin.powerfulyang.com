@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [10.x]
+        node_version: [14.x]
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
@@ -27,4 +27,4 @@ jobs:
           SOURCE: 'dist/.'
           REMOTE_HOST: powerfulyang.com
           REMOTE_USER: root
-          TARGET: /root/app/www/admin.powerfulyang.com/
+          TARGET: ~/applications/www/admin.powerfulyang.com/
