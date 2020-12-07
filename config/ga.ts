@@ -5,7 +5,7 @@ export default (api: IApi) => {
   if (!__prod__) {
     return;
   }
-  // TODO google analytics 4
+
   const gaTpl = function () {
     return `
     (function(){
