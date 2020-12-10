@@ -40,10 +40,6 @@ export default defineConfig({
           ],
         },
         {
-          path: 'table',
-          component: './table',
-        },
-        {
           path: '/',
           component: '../layouts/SecurityLayout',
           routes: [
