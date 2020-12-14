@@ -75,8 +75,8 @@ export default defineConfig({
                   path: '/post',
                   routes: [
                     {
-                      path: '/post/create',
-                      component: './post/create',
+                      path: '/post/publish',
+                      component: './post/publish',
                     },
                     {
                       path: '/post/list',

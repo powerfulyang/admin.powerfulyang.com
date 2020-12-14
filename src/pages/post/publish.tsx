@@ -1,12 +1,21 @@
 import React from 'react';
 import { Button, Card, Col, Input, message, Row } from 'antd';
 import { MarkdownWrap } from '@powerfulyang/components';
-import { useImmer } from '@powerfulyang/hooks';
+import { useImmer, usePageQuery, useRequest } from '@powerfulyang/hooks';
 import request from '@/utils/request';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-const Create = () => {
+const Publish = () => {
   const [post, setPost] = useImmer('');
+  const { id } = usePageQuery();
+  useRequest({
+    url: `/post/${id}`,
+    resTransform: async (res) => {
+      const { data } = await res.json();
+      setPost(data.content);
+    },
+    runCase: !!id,
+  });
   const postBlog = async () => {
     if (!post || post.split('\n').filter((x) => x).length < 2 || !post.startsWith('# ')) {
       message.error('内容不能为空!');
@@ -17,6 +26,7 @@ const Create = () => {
       data: {
         content: post,
         title: post.split('\n')[0].replace('#', '').trim(),
+        id,
       },
     });
     if (res.status === 'ok') {
@@ -37,7 +47,7 @@ const Create = () => {
               value={post}
             />
           </Col>
-          <Col style={{ border: '1px dashed #ccc' }} span={10} offset={2}>
+          <Col style={{ border: '1px dashed #ccc', padding: '0 2rem' }} span={10} offset={2}>
             <MarkdownWrap source={post} />
           </Col>
         </Row>
@@ -51,4 +61,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Publish;
