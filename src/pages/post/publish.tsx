@@ -1,18 +1,22 @@
 import React from 'react';
-import { Button, Card, Col, Input, message, Row } from 'antd';
+import { Button, Card, Col, Input, message, Row, Tag } from 'antd';
 import { MarkdownWrap } from '@powerfulyang/components';
 import { useImmer, usePageQuery, useRequest } from '@powerfulyang/hooks';
 import request from '@/utils/request';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { history } from 'umi';
+import './publish.less';
 
 const Publish = () => {
   const [post, setPost] = useImmer('');
+  const [tags, setTags] = useImmer<Set<string>>(new Set());
   const { id } = usePageQuery();
   useRequest({
     url: `/post/${id}`,
     resTransform: async (res) => {
       const { data } = await res.json();
       setPost(data.content);
+      setTags(new Set(data.tags || []));
     },
     runCase: !!id,
   });
@@ -27,16 +31,46 @@ const Publish = () => {
         content: post,
         title: post.split('\n')[0].replace('#', '').trim(),
         id,
+        tags: Array.from(tags),
       },
     });
     if (res.status === 'ok') {
       message.success('创建成功!');
-      setPost('');
+      history.replace({
+        query: {
+          id: res.data.id,
+        },
+      });
     }
   };
   return (
     <PageHeaderWrapper>
       <Card>
+        <Row justify="center" style={{ marginBottom: '1rem' }}>
+          {Array.from(tags).map((tag) => (
+            <Tag
+              closable
+              onClose={() => {
+                setTags((draft) => {
+                  draft.delete(tag);
+                });
+              }}
+              key={tag}
+            >
+              {tag}
+            </Tag>
+          ))}
+          <Input
+            onPressEnter={(e) => {
+              const tag = e.currentTarget.value;
+              setTags((draft) => {
+                draft.add(tag);
+              });
+            }}
+            className="tag-input"
+            size="small"
+          />
+        </Row>
         <Row style={{ minHeight: '41rem' }}>
           <Col span={10} offset={1}>
             <Input.TextArea

@@ -4,13 +4,17 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { queryPosts } from '@/pages/post/service';
 import dayjs from 'dayjs';
 import './index.less';
+import { Link } from 'umi';
 
 const Posts = () => {
-  const columns: ProColumns[] = [
+  const columns: ProColumns<{ id: number }>[] = [
     {
       title: 'title',
       dataIndex: 'title',
       className: 'post-list-title-no-wrap',
+      render(_, record) {
+        return <Link to={`/post/publish?id=${record.id}`}>{_}</Link>;
+      },
     },
     {
       title: 'content',
