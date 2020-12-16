@@ -19,9 +19,8 @@ export default defineConfig({
     antd: true,
     baseNavigator: false,
   },
-  dynamicImport: false,
-  targets: {
-    ie: 11,
+  dynamicImport: {
+    loading: '@/components/PageLoading/index',
   },
   // umi routes: https://umijs.org/docs/routing
   routes: [
@@ -117,7 +116,7 @@ export default defineConfig({
       memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
         {
           algorithm: 'gzip',
-          test: /\.js(\?.*)?$/i,
+          test: /\.(js|css)(\?.*)?$/i,
           threshold: 10240,
           minRatio: 0.8,
         },
