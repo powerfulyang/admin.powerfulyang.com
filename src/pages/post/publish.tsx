@@ -35,8 +35,8 @@ const Publish = () => {
       },
     });
     if (res.status === 'ok') {
-      message.success('创建成功!');
-      history.replace({
+      message.success('提交成功!');
+      history.push({
         query: {
           id: res.data.id,
         },
