@@ -39,6 +39,16 @@ export default defineConfig({
           ],
         },
         {
+          path: '/public',
+          component: '../layouts/PublicLayout',
+          routes: [
+            {
+              path: '/public/map',
+              component: './public/map',
+            },
+          ],
+        },
+        {
           path: '/',
           component: '../layouts/SecurityLayout',
           routes: [
