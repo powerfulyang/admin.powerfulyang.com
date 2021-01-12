@@ -3,6 +3,7 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
+const tailwindcss = require('tailwindcss');
 
 const { REACT_APP_ENV } = process.env;
 
@@ -25,6 +26,16 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
+      path: '/public',
+      component: '../layouts/PublicLayout',
+      routes: [
+        {
+          path: '/public/map',
+          component: './public/map',
+        },
+      ],
+    },
+    {
       path: '/',
       component: '../layouts/CsrfLayout',
       routes: [
@@ -35,16 +46,6 @@ export default defineConfig({
             {
               path: '/user/login',
               component: './user/login',
-            },
-          ],
-        },
-        {
-          path: '/public',
-          component: '../layouts/PublicLayout',
-          routes: [
-            {
-              path: '/public/map',
-              component: './public/map',
             },
           ],
         },
@@ -121,6 +122,7 @@ export default defineConfig({
     basePath: '/',
   },
   plugins: [`${__dirname}/ga.ts`],
+  extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
   chainWebpack(memo) {
     REACT_APP_ENV !== 'dev' &&
       memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [

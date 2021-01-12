@@ -3,4 +3,7 @@ module.exports = {
   globals: {
     REACT_APP_ENV: true,
   },
+  rules: {
+    'react/react-in-jsx-scope': 0,
+  },
 };
