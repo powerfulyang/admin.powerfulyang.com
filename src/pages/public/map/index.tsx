@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './index.less';
+import './index.scss';
 import { getSuitableImageSize } from '@powerfulyang/utils';
 import { useImmer, useMount, usePageQuery } from '@powerfulyang/hooks';
 import { fromEvent } from 'rxjs';
