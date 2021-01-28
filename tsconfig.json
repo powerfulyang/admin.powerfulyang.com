@@ -6,7 +6,7 @@
     "lib": ["es5", "es6", "es7", "es2017", "dom", "esnext"],
     "sourceMap": true,
     "baseUrl": ".",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "noUnusedParameters": true,
