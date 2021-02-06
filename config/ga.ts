@@ -1,8 +1,8 @@
-import { __prod__ } from '@powerfulyang/utils';
+// 不要去依赖没有build的包
 import { IApi } from 'umi';
 
 export default (api: IApi) => {
-  if (!__prod__) {
+  if (!(process.env.NODE_ENV === 'production')) {
     return;
   }
 
