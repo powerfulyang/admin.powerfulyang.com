@@ -1,11 +1,7 @@
-// https://umijs.org/config/
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-import CompressionWebpackPlugin from 'compression-webpack-plugin';
 const tailwindcss = require('tailwindcss');
-
-const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
   hash: true,
@@ -123,16 +119,5 @@ export default defineConfig({
   },
   plugins: [`${__dirname}/ga.ts`],
   extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
-  chainWebpack(memo) {
-    REACT_APP_ENV !== 'dev' &&
-      memo.plugin('CompressionWebpackPlugin').use(CompressionWebpackPlugin, [
-        {
-          algorithm: 'gzip',
-          test: /\.(js|css)(\?.*)?$/i,
-          threshold: 10240,
-          minRatio: 0.8,
-        },
-      ]);
-  },
   sass: {},
 });
