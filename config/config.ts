@@ -22,16 +22,6 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
-      path: '/public',
-      component: '../layouts/PublicLayout',
-      routes: [
-        {
-          path: '/public/map',
-          component: './public/map',
-        },
-      ],
-    },
-    {
       path: '/',
       component: '../layouts/CsrfLayout',
       routes: [
@@ -114,9 +104,6 @@ export default defineConfig({
   title: false,
   ignoreMomentLocale: true,
   proxy: proxy.dev,
-  manifest: {
-    basePath: '/',
-  },
   plugins: [`${__dirname}/ga.ts`],
   extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
   sass: {},
