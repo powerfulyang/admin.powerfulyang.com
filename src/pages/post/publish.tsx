@@ -10,7 +10,7 @@ import './publish.less';
 const Publish = () => {
   const [post, setPost] = useImmer('');
   const [tags, setTags] = useImmer<Set<string>>(new Set());
-  const { id } = usePageQuery();
+  const id = usePageQuery('id');
   useRequest({
     url: `/post/${id}`,
     resTransform: async (res) => {

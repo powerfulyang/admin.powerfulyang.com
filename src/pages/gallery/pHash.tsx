@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Col, Pagination, Row, Skeleton } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import './index.less';
+import './index.scss';
 import { useRequest } from '@/hooks/useRequest';
 import { getCosObjectThumbnailUrl } from '@/utils/cosUtils';
 

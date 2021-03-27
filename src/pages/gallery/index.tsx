@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Card, Modal, Pagination, Row, Skeleton } from 'antd';
+import { Card, Modal, Pagination, Skeleton } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import './index.less';
+import './index.scss';
 import { useRequest } from '@/hooks/useRequest';
 import { getCosObjectThumbnailUrl, getCosObjectUrl } from '@/utils/cosUtils';
 import { useImmer } from '@powerfulyang/hooks';
 import { __dev__ } from '@powerfulyang/utils';
 
 const Gallery = () => {
-  const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 12 });
+  const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 24 });
   const [loading, assets] = useRequest<any, typeof pagination>('/asset', { params: pagination });
   const [previewUrl, setPreviewUrl] = useState<string>();
 
@@ -16,7 +16,7 @@ const Gallery = () => {
     <PageHeaderWrapper title={false}>
       <Card>
         {(!loading && (
-          <Row>
+          <div className="gallery-list">
             {assets.data[0].map((img: any) => (
               <div
                 key={img.id}
@@ -25,17 +25,14 @@ const Gallery = () => {
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center center',
-                  width: '282px',
-                  height: '282px',
                   cursor: 'pointer',
-                  margin: '1rem 1rem',
                 }}
                 onClick={() => {
                   setPreviewUrl(getCosObjectUrl(img.objectUrl));
                 }}
               />
             ))}
-          </Row>
+          </div>
         )) || <Skeleton />}
         <Modal
           bodyStyle={{ textAlign: 'center' }}
@@ -59,6 +56,7 @@ const Gallery = () => {
             });
           }}
           total={assets?.data?.[1] || pagination.total}
+          pageSizeOptions={[String(24 * 4), String(24 * 24), String(24 * 24 * 4)]}
         />
       </Card>
     </PageHeaderWrapper>
