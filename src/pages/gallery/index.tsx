@@ -66,6 +66,7 @@ const Gallery = () => {
             accept={'image/*'}
             name="files"
             multiple
+            withCredentials
           >
             <UploadOutlined />
             upload
