@@ -1,5 +1,6 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { __prod__ } from '@powerfulyang/utils';
 
 /**
  * 异常处理程序
@@ -31,21 +32,20 @@ const errorHandler = async (error: { response: Response }): Promise<Response> =>
   return response;
 };
 
+export const prefix = (__prod__ && 'https://api.powerfulyang.com/api') || '/api';
+
 /**
  * 配置request请求时的默认参数
  */
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include',
+  prefix,
 });
 
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use((url, options) => {
   const token = localStorage.getItem('token');
-  let newUrl = `https://api.powerfulyang.com/api${url}`;
-  if (REACT_APP_ENV) {
-    newUrl = `/api${url}`;
-  }
   if (token) {
     const headers = {
       'Content-Type': 'application/json',
@@ -53,12 +53,12 @@ request.interceptors.request.use((url, options) => {
       authorization: token,
     };
     return {
-      url: newUrl,
+      url,
       options: { ...options, headers },
     };
   }
   return {
-    url: newUrl,
+    url,
     options: { ...options },
   };
 });

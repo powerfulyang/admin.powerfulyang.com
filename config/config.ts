@@ -107,4 +107,5 @@ export default defineConfig({
   plugins: [`${__dirname}/ga.ts`],
   extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
   sass: {},
+  esbuild: {},
 });

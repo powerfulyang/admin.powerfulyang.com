@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
-import { Card, Modal, Pagination, Skeleton } from 'antd';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { Button, Card, Modal, Pagination, Skeleton, Upload } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout';
 import './index.scss';
 import { useRequest } from '@/hooks/useRequest';
 import { getCosObjectThumbnailUrl, getCosObjectUrl } from '@/utils/cosUtils';
 import { useImmer } from '@powerfulyang/hooks';
 import { __dev__ } from '@powerfulyang/utils';
+import { UploadOutlined } from '@ant-design/icons';
+import { prefix } from '@/utils/request';
 
 const Gallery = () => {
   const [pagination, setPagination] = useImmer({ currentPage: 1, total: 1, pageSize: 24 });
   const [loading, assets] = useRequest<any, typeof pagination>('/asset', { params: pagination });
   const [previewUrl, setPreviewUrl] = useState<string>();
+  const [uploadModalVisible, setUploadModalVisible] = useState(false);
 
   return (
-    <PageHeaderWrapper title={false}>
+    <PageContainer
+      extra={[
+        <Button key="upload" type="primary" onClick={() => setUploadModalVisible(true)}>
+          upload images
+        </Button>,
+      ]}
+    >
       <Card>
         {(!loading && (
           <div className="gallery-list">
@@ -39,11 +48,28 @@ const Gallery = () => {
           visible={!!previewUrl}
           footer={null}
           onCancel={() => setPreviewUrl('')}
-          width={700}
+          width="75%"
         >
           {!!previewUrl && (
             <img key={previewUrl} alt="preview" style={{ maxWidth: '100%' }} src={previewUrl} />
           )}
+        </Modal>
+        <Modal
+          visible={uploadModalVisible}
+          title="上传图片"
+          footer={null}
+          onCancel={() => setUploadModalVisible(false)}
+        >
+          <Upload
+            listType="picture-card"
+            action={`${prefix}/asset`}
+            accept={'image/*'}
+            name="files"
+            multiple
+          >
+            <UploadOutlined />
+            upload
+          </Upload>
         </Modal>
         <Pagination
           style={{ marginTop: '20px' }}
@@ -59,7 +85,7 @@ const Gallery = () => {
           pageSizeOptions={[String(24 * 4), String(24 * 24), String(24 * 24 * 4)]}
         />
       </Card>
-    </PageHeaderWrapper>
+    </PageContainer>
   );
 };
 
