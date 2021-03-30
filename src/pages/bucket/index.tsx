@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { PageContainer } from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 
 import { __dev__ } from '@powerfulyang/utils';
+import { Button } from 'antd';
 import { queryBucket } from './service';
 import CreateForm from './components/CreateForm';
 
@@ -17,12 +18,43 @@ const BucketList: React.FC = () => {
       title: 'bucketRegion',
       dataIndex: 'bucketRegion',
     },
+    {
+      title: 'acl',
+      dataIndex: 'acl',
+    },
+    {
+      title: 'RefererType',
+      dataIndex: ['referer', 'RefererType'],
+    },
+    {
+      title: 'RefererStatue',
+      dataIndex: ['referer', 'Status'],
+    },
+    {
+      title: 'Referer-DomainList',
+      dataIndex: ['referer', 'DomainList', 'Domains'],
+      render(_, __) {
+        return __.referer?.DomainList?.Domains.join(',');
+      },
+    },
   ];
+  const hideModal = () => handleModalVisible(false);
   return (
-    <PageHeaderWrapper>
-      <ProTable rowKey="id" headerTitle="bucket" request={() => queryBucket()} columns={columns} />
-      <CreateForm onCancel={() => handleModalVisible(false)} modalVisible={createModalVisible} />
-    </PageHeaderWrapper>
+    <PageContainer
+      extra={[
+        <Button type="primary" key="create" onClick={() => handleModalVisible(true)}>
+          create new bucket
+        </Button>,
+      ]}
+    >
+      <ProTable
+        rowKey="bucketName"
+        headerTitle="bucket"
+        request={() => queryBucket()}
+        columns={columns}
+      />
+      <CreateForm onCancel={hideModal} onOk={hideModal} modalVisible={createModalVisible} />
+    </PageContainer>
   );
 };
 
