@@ -1,11 +1,8 @@
-import { Tabs, Form } from 'antd';
+import { Form, Tabs } from 'antd';
 import React, { useState } from 'react';
-import useMergeValue from 'use-merge-value';
 import classNames from 'classnames';
 import { FormInstance } from 'antd/es/form';
 import { LoginParamsType } from '@/services/login';
-
-import { Dict } from '@powerfulyang/utils';
 import LoginContext from './LoginContext';
 import LoginItem, { LoginItemProps } from './LoginItem';
 import LoginSubmit from './LoginSubmit';
@@ -34,11 +31,6 @@ interface LoginType extends React.FC<LoginProps> {
 const Login: LoginType = (props) => {
   const { className } = props;
   const [tabs, setTabs] = useState<string[]>([]);
-  const [active, setActive] = useState<Dict>({});
-  const [type, setType] = useMergeValue('', {
-    value: props.activeKey,
-    onChange: props.onTabChange,
-  });
   const TabChildren: React.ReactComponentElement<typeof LoginTab>[] = [];
   const otherChildren: React.ReactElement<unknown>[] = [];
   React.Children.forEach(
@@ -65,15 +57,6 @@ const Login: LoginType = (props) => {
             setTabs(tabs.filter((currentId) => currentId !== id));
           },
         },
-        updateActive: (activeItem) => {
-          if (!active) return;
-          if (active[type]) {
-            active[type].push(activeItem);
-          } else {
-            active[type] = [activeItem];
-          }
-          setActive(active);
-        },
       }}
     >
       <div className={classNames(className, styles.login)}>
@@ -87,15 +70,7 @@ const Login: LoginType = (props) => {
         >
           {tabs.length ? (
             <React.Fragment>
-              <Tabs
-                destroyInactiveTabPane
-                animated={false}
-                className={styles.tabs}
-                activeKey={type}
-                onChange={(activeKey) => {
-                  setType(activeKey);
-                }}
-              >
+              <Tabs destroyInactiveTabPane animated={false} className={styles.tabs}>
                 {TabChildren}
               </Tabs>
               {otherChildren}

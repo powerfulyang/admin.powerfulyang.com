@@ -48,8 +48,6 @@ request.interceptors.request.use((url, options) => {
   const token = localStorage.getItem('token');
   if (token) {
     const headers = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
       authorization: token,
     };
     return {

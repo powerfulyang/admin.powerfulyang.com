@@ -4,7 +4,6 @@ import React from 'react';
 import { connect, ConnectProps } from 'umi';
 import { ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
-import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
 
@@ -28,15 +27,6 @@ const GlobalHeaderRight: React.FC<GlobalHeaderRightProps> = (props) => {
 
   return (
     <div className={className}>
-      <HeaderSearch
-        className={`${styles.action} ${styles.search}`}
-        placeholder="站内搜索"
-        defaultValue="home page"
-        options={[{ label: <a href="https://powerfulyang.com">home page</a>, value: 'home page' }]}
-        // onSearch={value => {
-        //   //console.log('input', value);
-        // }}
-      />
       <Avatar />
       {REACT_APP_ENV && (
         <span>

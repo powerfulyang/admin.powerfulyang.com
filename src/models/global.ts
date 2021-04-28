@@ -1,16 +1,7 @@
 import { Reducer, Subscription } from 'umi';
 
-import { NoticeIconData } from '@/components/NoticeIcon';
-
-export interface NoticeItem extends NoticeIconData {
-  id: string;
-  type: string;
-  status: string;
-}
-
 export interface GlobalModelState {
   collapsed: boolean;
-  notices: NoticeItem[];
 }
 
 export interface GlobalModelType {
@@ -28,13 +19,12 @@ const GlobalModel: GlobalModelType = {
 
   state: {
     collapsed: false,
-    notices: [],
   },
 
   effects: {},
 
   reducers: {
-    changeLayoutCollapsed(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
+    changeLayoutCollapsed(state = { collapsed: true }, { payload }): GlobalModelState {
       return {
         ...state,
         collapsed: payload,

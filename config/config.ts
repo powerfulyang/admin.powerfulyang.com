@@ -3,6 +3,8 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const tailwindcss = require('tailwindcss');
 
+const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
   hash: true,
   antd: {},
@@ -103,7 +105,7 @@ export default defineConfig({
   },
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy.dev,
+  proxy: proxy[(REACT_APP_ENV as unknown) as keyof typeof proxy],
   plugins: [`${__dirname}/ga.ts`],
   extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
   sass: {},
