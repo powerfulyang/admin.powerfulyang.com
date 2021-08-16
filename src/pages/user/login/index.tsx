@@ -8,6 +8,7 @@ import { ConnectState } from '@/models/connect';
 import LoginForm from './components/Login';
 
 import styles from './style.less';
+import { getPageQuery } from '@/utils/utils';
 
 const { Tab, UserName, Password, Submit } = LoginForm;
 interface LoginProps {
@@ -42,6 +43,8 @@ const Login: React.FC<LoginProps> = (props) => {
       payload: { ...values, type },
     });
   };
+
+  const { redirect } = getPageQuery();
   return (
     <div className={styles.main}>
       <LoginForm activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
@@ -73,13 +76,17 @@ const Login: React.FC<LoginProps> = (props) => {
         </Tab>
         <div>
           <Checkbox checked={autoLogin} onChange={(e) => setAutoLogin(e.target.checked)}>
-            自动登录
+            记住密码
           </Checkbox>
         </div>
         <Submit loading={submitting}>登录</Submit>
         <div className={styles.other}>
           其他登录方式
-          <a href="https://api.powerfulyang.com/api/user/google/auth">
+          <a
+            href={`${API_ENV}/user/google/auth?redirect=${encodeURI(
+              (redirect as string) || window.location.origin,
+            )}`}
+          >
             <GoogleCircleFilled className={styles.icon} />
           </a>
         </div>

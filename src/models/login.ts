@@ -6,6 +6,22 @@ import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import request from '@/utils/request';
 
+export const LoginSuccessRedirect = () => {
+  const urlParams = new URL(window.location.href);
+  const params = getPageQuery();
+  let { redirect } = params as { redirect: string };
+  if (redirect) {
+    const redirectUrlParams = new URL(redirect);
+    if (redirectUrlParams.origin === urlParams.origin) {
+      redirect = redirect.substr(urlParams.origin.length);
+      if (redirect.match(/^\/.*#/)) {
+        redirect = redirect.substr(redirect.indexOf('#') + 1);
+      }
+    }
+  }
+  history.replace(redirect || '/');
+};
+
 export interface StateType {
   status?: 'ok' | 'error';
   type?: string;
@@ -40,19 +56,7 @@ const Model: LoginModelType = {
       });
       // Login successfully
       if (response.status === 'ok') {
-        const urlParams = new URL(window.location.href);
-        const params = getPageQuery();
-        let { redirect } = params as { redirect: string };
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
-            if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
-            }
-          }
-        }
-        history.replace(redirect || '/');
+        LoginSuccessRedirect();
       }
     },
 

@@ -1,10 +1,10 @@
 import { getMenuData, getPageTitle, MenuDataItem } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { connect, ConnectProps, Link, useIntl } from 'umi';
+import { connect, ConnectProps, useIntl } from 'umi';
 import React from 'react';
 import SelectLang from '@/components/SelectLang';
 import { ConnectState } from '@/models/connect';
-import logo from '../assets/f4695a0f0a834a0f806983941076768438c80ccc.jpg';
+import { logo } from '../assets/images';
 import styles from './UserLayout.less';
 import { defaultFooterDom } from './BasicLayout';
 
@@ -49,12 +49,10 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>
-              <Link to="/">
-                <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>admin</span>
-              </Link>
+              <img alt="logo" className={styles.logo} src={logo} />
+              <span className={styles.title}>中央登录中心</span>
             </div>
-            <div className={styles.desc}>all manage in one!</div>
+            <div className={styles.desc}>You can jump to any place!</div>
           </div>
           {children}
         </div>

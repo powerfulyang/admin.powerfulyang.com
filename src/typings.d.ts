@@ -6,6 +6,7 @@ declare module '*.sass';
 declare module '*.svg';
 declare module '*.png';
 declare module '*.jpg';
+declare module '*.webp';
 declare module '*.jpeg';
 declare module '*.gif';
 declare module '*.bmp';
@@ -21,4 +22,4 @@ interface Window {
   ) => void;
 }
 
-declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
+declare const API_ENV: string;

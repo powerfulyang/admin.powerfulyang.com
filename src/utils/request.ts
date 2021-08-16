@@ -1,6 +1,5 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import { __prod__ } from '@powerfulyang/utils';
 
 /**
  * 异常处理程序
@@ -32,7 +31,7 @@ const errorHandler = async (error: { response: Response }): Promise<Response> =>
   return response;
 };
 
-export const prefix = (__prod__ && 'https://api.powerfulyang.com/api') || '/api';
+export const prefix = API_ENV;
 
 /**
  * 配置request请求时的默认参数

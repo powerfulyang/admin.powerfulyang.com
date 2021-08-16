@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: false,
   },
-  title: 'admin',
+  title: '中央控制中心',
   pwa: false,
   iconfontUrl: '',
 };

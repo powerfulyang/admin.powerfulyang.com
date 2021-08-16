@@ -14,7 +14,7 @@ import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import { useRequest } from '@/hooks/useRequest';
 import { HooksResponse } from '@/types/HooksResponse';
-import logo from '../assets/f4695a0f0a834a0f806983941076768438c80ccc.jpg';
+import { logo } from '../assets/images';
 
 const noMatch = (
   <Result
@@ -62,24 +62,24 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
 
 export const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} powerfulyang出品`}
+    copyright={`${new Date().getFullYear()} Power by powerfulyang`}
     links={[
       {
         key: 'powerfulyang',
-        title: `powerfulyang homepage`,
-        href: 'https://pro.ant.design',
+        title: `Styx's Home Page`,
+        href: 'https://powerfulyang.com',
         blankTarget: true,
       },
       {
-        key: 'github',
+        key: 'Github',
         title: <GithubOutlined />,
-        href: 'https://github.com/powerfulyang/admin.powerfulyang.com',
+        href: 'https://github.com/powerfulyang',
         blankTarget: true,
       },
       {
-        key: 'anime-waifu',
-        title: 'Anime Waifu',
-        href: 'https://gallery.powerfulyang.com',
+        key: 'Source Code',
+        title: 'Source Code',
+        href: 'https://github.com/powerfulyang/admin.powerfulyang.com',
         blankTarget: true,
       },
     ]}

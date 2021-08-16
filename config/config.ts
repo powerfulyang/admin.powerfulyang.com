@@ -1,13 +1,16 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
-import proxy from './proxy';
+
 const tailwindcss = require('tailwindcss');
 
-const { REACT_APP_ENV } = process.env;
+const { API_ENV } = process.env;
 
 export default defineConfig({
   hash: true,
   antd: {},
+  define: {
+    API_ENV,
+  },
   dva: {
     hmr: true,
   },
@@ -73,10 +76,6 @@ export default defineConfig({
                   path: '/post',
                   routes: [
                     {
-                      path: '/post/publish',
-                      component: './post/publish',
-                    },
-                    {
                       path: '/post/list',
                       component: './post',
                     },
@@ -105,7 +104,6 @@ export default defineConfig({
   },
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy[(REACT_APP_ENV as unknown) as keyof typeof proxy],
   plugins: [`${__dirname}/ga.ts`],
   extraPostCSSPlugins: [tailwindcss('config/tailwind.config.js')],
   sass: {},
