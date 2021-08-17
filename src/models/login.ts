@@ -1,6 +1,5 @@
 import { stringify } from 'querystring';
 import { Effect, history, Reducer } from 'umi';
-
 import { UserLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
@@ -17,9 +16,13 @@ export const LoginSuccessRedirect = () => {
       if (redirect.match(/^\/.*#/)) {
         redirect = redirect.substr(redirect.indexOf('#') + 1);
       }
+      history.replace(redirect);
+    } else {
+      window.location.href = redirect;
     }
+  } else {
+    history.replace('/');
   }
-  history.replace(redirect || '/');
 };
 
 export interface StateType {
@@ -56,6 +59,12 @@ const Model: LoginModelType = {
       });
       // Login successfully
       if (response.status === 'ok') {
+        // autoLogin
+        const { autoLogin, email, password } = payload;
+        if (autoLogin) {
+          localStorage.setItem('email', email);
+          localStorage.setItem('password', password);
+        }
         LoginSuccessRedirect();
       }
     },

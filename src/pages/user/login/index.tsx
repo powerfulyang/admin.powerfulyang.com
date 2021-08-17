@@ -1,6 +1,6 @@
 import { GoogleCircleFilled } from '@ant-design/icons';
-import { Alert, Checkbox } from 'antd';
-import React, { useState } from 'react';
+import { Alert, Checkbox, Form } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { connect, Dispatch } from 'umi';
 import { StateType } from '@/models/login';
 import { LoginParamsType } from '@/services/login';
@@ -33,8 +33,18 @@ const LoginMessage: React.FC<{
 const Login: React.FC<LoginProps> = (props) => {
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
-  const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState<string>('account');
+  const [form] = Form.useForm();
+  useEffect(() => {
+    const password = localStorage.getItem('password');
+    const email = localStorage.getItem('email');
+    if (password && email) {
+      form.setFieldsValue({
+        password,
+        email,
+      });
+    }
+  }, [form]);
 
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
@@ -47,7 +57,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const { redirect } = getPageQuery();
   return (
     <div className={styles.main}>
-      <LoginForm activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
+      <LoginForm form={form} activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
         <Tab key="account" tab="账户密码登录">
           {status === 'error' && loginType === 'account' && !submitting && (
             <LoginMessage content="账户或密码错误（admin/ant.design）" />
@@ -74,11 +84,9 @@ const Login: React.FC<LoginProps> = (props) => {
             ]}
           />
         </Tab>
-        <div>
-          <Checkbox checked={autoLogin} onChange={(e) => setAutoLogin(e.target.checked)}>
-            记住密码
-          </Checkbox>
-        </div>
+        <Form.Item name="autoLogin" valuePropName="checked">
+          <Checkbox>记住密码</Checkbox>
+        </Form.Item>
         <Submit loading={submitting}>登录</Submit>
         <div className={styles.other}>
           其他登录方式
