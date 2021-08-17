@@ -64,6 +64,9 @@ const Model: LoginModelType = {
         if (autoLogin) {
           localStorage.setItem('email', email);
           localStorage.setItem('password', password);
+        } else {
+          localStorage.removeItem('email');
+          localStorage.removeItem('password');
         }
         LoginSuccessRedirect();
       }

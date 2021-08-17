@@ -42,6 +42,7 @@ const Login: React.FC<LoginProps> = (props) => {
       form.setFieldsValue({
         password,
         email,
+        autoLogin: true,
       });
     }
   }, [form]);
