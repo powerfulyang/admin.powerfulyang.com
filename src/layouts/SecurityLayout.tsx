@@ -2,9 +2,9 @@ import React from 'react';
 import { PageLoading } from '@ant-design/pro-layout';
 import { connect, ConnectProps, Redirect } from 'umi';
 import { stringify } from 'querystring';
+import { captureException } from '@sentry/react';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
-import { captureException } from '@sentry/react';
 import { getPageQuery } from '@/utils/utils';
 
 interface SecurityLayoutProps extends ConnectProps {

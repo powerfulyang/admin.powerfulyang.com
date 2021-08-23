@@ -1,21 +1,13 @@
-import { Tag } from 'antd';
 import { Settings as ProSettings } from '@ant-design/pro-layout';
 import React from 'react';
 import { connect, ConnectProps } from 'umi';
 import { ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
-import SelectLang from '../SelectLang';
 import styles from './index.less';
 
 export interface GlobalHeaderRightProps extends Partial<ConnectProps>, Partial<ProSettings> {
   theme?: ProSettings['navTheme'] | 'realDark';
 }
-
-const ENVTagColor = {
-  dev: 'orange',
-  test: 'green',
-  pre: '#87d068',
-};
 
 const GlobalHeaderRight: React.FC<GlobalHeaderRightProps> = (props) => {
   const { theme, layout } = props;
@@ -28,12 +20,6 @@ const GlobalHeaderRight: React.FC<GlobalHeaderRightProps> = (props) => {
   return (
     <div className={className}>
       <Avatar />
-      {REACT_APP_ENV && (
-        <span>
-          <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
-        </span>
-      )}
-      <SelectLang className={styles.action} />
     </div>
   );
 };

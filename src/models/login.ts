@@ -1,7 +1,6 @@
 import { stringify } from 'querystring';
 import { Effect, history, Reducer } from 'umi';
 import { UserLogin } from '@/services/login';
-import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import request from '@/utils/request';
 
@@ -91,7 +90,6 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
       return {
         ...state,
         status: payload.status,

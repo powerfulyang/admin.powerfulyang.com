@@ -7,27 +7,11 @@ import ProLayout, {
 import React from 'react';
 import { connect, Dispatch, history, Link, useIntl } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
-import { Button, Result } from 'antd';
-import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
-import { getAuthorityFromRouter } from '@/utils/utils';
 import { useRequest } from '@/hooks/useRequest';
 import { HooksResponse } from '@/types/HooksResponse';
 import { logo } from '../assets/images';
-
-const noMatch = (
-  <Result
-    status={403}
-    title="403"
-    subTitle="Sorry, you are not authorized to access this page."
-    extra={
-      <Button type="primary">
-        <Link to="/user/login">Go Login</Link>
-      </Button>
-    }
-  />
-);
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -51,12 +35,11 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
   return menuList.map((item) => {
-    const localItem = {
+    return {
       ...item,
       name: item.menuName,
       children: item.children ? menuDataRender(item.children) : undefined,
     };
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 };
 
@@ -87,14 +70,7 @@ export const defaultFooterDom = (
 );
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
-  const {
-    dispatch,
-    children,
-    settings,
-    location = {
-      pathname: '/',
-    },
-  } = props;
+  const { dispatch, children, settings } = props;
   /**
    * constructor
    */
@@ -112,9 +88,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
-    authority: undefined,
-  };
   const { formatMessage } = useIntl();
 
   const [, menus] = useRequest<HooksResponse<MenuDataItem[]>>('/menu/current');
@@ -154,9 +127,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           {...props}
           {...settings}
         >
-          <Authorized authority={authorized!.authority} noMatch={noMatch}>
-            {children}
-          </Authorized>
+          {children}
         </ProLayout>
       )}
     </>

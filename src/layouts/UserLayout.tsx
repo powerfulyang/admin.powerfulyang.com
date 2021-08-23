@@ -2,7 +2,6 @@ import { getMenuData, getPageTitle, MenuDataItem } from '@ant-design/pro-layout'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { connect, ConnectProps, useIntl } from 'umi';
 import React from 'react';
-import SelectLang from '@/components/SelectLang';
 import { ConnectState } from '@/models/connect';
 import { logo } from '../assets/images';
 import styles from './UserLayout.less';
@@ -43,9 +42,6 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
       </Helmet>
 
       <div className={styles.container}>
-        <div className={styles.lang}>
-          <SelectLang />
-        </div>
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>

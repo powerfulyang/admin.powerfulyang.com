@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Card, Modal, Pagination, Skeleton, Upload } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import './index.scss';
-import { useRequest } from '@/hooks/useRequest';
-import { getCosObjectThumbnailUrl, getCosObjectUrl } from '@/utils/cosUtils';
 import { useImmer } from '@powerfulyang/hooks';
 import { __dev__ } from '@powerfulyang/utils';
 import { UploadOutlined } from '@ant-design/icons';
+import { getCosObjectThumbnailUrl, getCosObjectUrl } from '@/utils/cosUtils';
+import { useRequest } from '@/hooks/useRequest';
 import { prefix } from '@/utils/request';
 
 const Gallery = () => {

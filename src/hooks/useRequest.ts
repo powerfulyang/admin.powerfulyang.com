@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useImmer } from '@powerfulyang/hooks';
-import request from '@/utils/request';
 import { Subject } from 'rxjs';
 import { RequestOptionsInit } from 'umi-request';
+import request from '@/utils/request';
 
 export const useRequest = <T = any, P = any>(
   url: string,

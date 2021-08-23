@@ -1,10 +1,9 @@
-import React from 'react';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { queryPosts } from '@/pages/post/service';
 import dayjs from 'dayjs';
 import './index.less';
 import { Link } from 'umi';
+import { queryPosts } from '@/pages/post/service';
 
 const Posts = () => {
   const columns: ProColumns<{ id: number }>[] = [

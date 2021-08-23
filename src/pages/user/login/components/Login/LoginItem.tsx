@@ -2,9 +2,9 @@ import { Button, Col, Form, Input, message, Row } from 'antd';
 import React, { useCallback, useState } from 'react';
 import omit from 'omit.js';
 import { FormItemProps } from 'antd/es/form/FormItem';
+import { useEffectOnce } from '@powerfulyang/hooks';
 import { getFakeCaptcha } from '@/services/login';
 
-import { useEffectOnce } from '@powerfulyang/hooks';
 import ItemMap from './map';
 import LoginContext, { LoginContextProps } from './LoginContext';
 import styles from './index.less';

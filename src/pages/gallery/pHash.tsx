@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Card, Col, message, Modal, Pagination, Row, Skeleton } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import './index.scss';
+import { useImmer } from '@powerfulyang/hooks';
 import { useRequest } from '@/hooks/useRequest';
 import { getCosObjectThumbnailUrl } from '@/utils/cosUtils';
-import { useImmer } from '@powerfulyang/hooks';
 import request from '@/utils/request';
 
 const GalleryPHash = () => {

@@ -1,6 +1,6 @@
 import { Effect, Reducer } from 'umi';
-import request from '@/utils/request';
 import { stringify } from 'qs';
+import request from '@/utils/request';
 
 export interface CurrentUser {
   avatar?: string;
