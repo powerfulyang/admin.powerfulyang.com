@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs } from 'antd';
-import { useEffectOnce } from '@powerfulyang/hooks';
 import LoginContext, { LoginContextProps } from './LoginContext';
 
 const { TabPane } = Tabs;
@@ -21,13 +20,13 @@ interface LoginTabProps extends TabPaneProps {
 }
 
 const LoginTab: React.FC<LoginTabProps> = (props) => {
-  useEffectOnce(() => {
+  useEffect(() => {
     const uniqueId = generateId('login-tab-');
     const { tabUtil } = props;
     if (tabUtil) {
       tabUtil.addTab(uniqueId);
     }
-  });
+  },[]);
   const { children } = props;
   return <TabPane {...props}>{props.active && children}</TabPane>;
 };

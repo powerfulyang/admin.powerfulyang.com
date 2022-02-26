@@ -15,7 +15,7 @@ export const useRequest = <T = any, P = any>(
 ) => {
   const { params, data, method = 'GET', initialVal } = options;
   const [loading, setLoading] = useImmer(true);
-  const [response, setResponse] = useImmer<T>(initialVal);
+  const [response, setResponse] = useImmer(initialVal);
   useEffect(() => {
     setLoading(true);
     const subject = new Subject();

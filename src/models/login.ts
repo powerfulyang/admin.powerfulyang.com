@@ -25,7 +25,6 @@ export const LoginSuccessRedirect = () => {
 };
 
 export interface StateType {
-  status?: 'ok' | 'error';
   type?: string;
   currentAuthority?: 'user' | 'guest' | 'admin';
 }
@@ -45,9 +44,7 @@ export interface LoginModelType {
 const Model: LoginModelType = {
   namespace: 'login',
 
-  state: {
-    status: undefined,
-  },
+  state: {},
 
   effects: {
     *login({ payload }, { call, put }) {
@@ -57,7 +54,6 @@ const Model: LoginModelType = {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
         // autoLogin
         const { autoLogin, email, password } = payload;
         if (autoLogin) {
@@ -68,13 +64,11 @@ const Model: LoginModelType = {
           localStorage.removeItem('password');
         }
         LoginSuccessRedirect();
-      }
     },
 
     *logout() {
       const { redirect } = getPageQuery();
-      const res = yield request('/user/logout', { method: 'POST' });
-      if (res.status === 'ok') {
+      yield request('/user/logout', { method: 'POST' });
         // Note: There may be security issues, please note
         if (window.location.pathname !== '/user/login' && !redirect) {
           history.replace({
@@ -84,7 +78,6 @@ const Model: LoginModelType = {
             }),
           });
         }
-      }
     },
   },
 

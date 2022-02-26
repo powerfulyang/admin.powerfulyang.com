@@ -1,4 +1,4 @@
-import { GoogleCircleFilled } from '@ant-design/icons';
+import {GithubFilled, GoogleCircleFilled} from '@ant-design/icons';
 import { Alert, Checkbox, Form } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect, Dispatch } from 'umi';
@@ -97,6 +97,12 @@ const Login: React.FC<LoginProps> = (props) => {
             )}`}
           >
             <GoogleCircleFilled className={styles.icon} />
+
+          </a>
+          <a href={`${API_ENV}/user/github/auth?redirect=${encodeURI(
+            (redirect as string) || window.location.origin,
+          )}`}>
+            <GithubFilled className={styles.icon} />
           </a>
         </div>
       </LoginForm>

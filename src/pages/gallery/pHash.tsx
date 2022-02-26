@@ -38,15 +38,13 @@ const GalleryPHash = () => {
     Modal.confirm({
       title: '确认删除图片?',
       async onOk() {
-        const res = await request('/asset', {
+         await request('/asset', {
           method: 'DELETE',
           data: {
             id,
           },
         });
-        if (res.status === 'ok') {
           message.success('删除成功！');
-        }
       },
     });
   };

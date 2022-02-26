@@ -16,14 +16,10 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
    */
   const handleAdd = async (values: any) => {
     const hide = message.loading('正在添加');
-    const res = await addBucket(values);
-    if (res.status === 'ok') {
+    await addBucket(values);
       hide();
       message.success('添加成功');
       onOk();
-    } else {
-      hide();
-    }
   };
   return (
     <Modal
