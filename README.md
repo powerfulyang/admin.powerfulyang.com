@@ -1,3 +1,1 @@
-## admin site for managing powerfulyang's project
-
-[login in](https://admin.powerfulyang.com)
+umi.js 可真的不太想吐槽
